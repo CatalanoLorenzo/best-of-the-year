@@ -1,100 +1,86 @@
 package org.java.app.controller;
 
 import java.util.ArrayList;
+import java.util.List;
 
-import org.java.app.Movie;
-import org.java.app.Song;
+import org.java.app.pojo.Movie;
+import org.java.app.pojo.Song;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.ResponseBody;
+
+import jakarta.servlet.http.HttpServletRequest;
 
 @Controller
 public class MainController {
 
-	private String getBestSongs() {
-		String listaString = "";
-		for (int i = 0; i < 10; i++) {
-			listaString += new Song(i, "song" + i) + ",";
-
-		}
-		return listaString;
-	}
-
-	private Song getSingleSongs(int id) {
-		Song[] listaSong = new Song[10];
-		for (int i = 0; i < 10; i++) {
-			listaSong[i] = new Song(i, "song" + i);
-
-		}
-		return listaSong[id];
-	}
-
-	private String getBestMovies() {
-		String listaString = "";
-
-		for (int i = 0; i < 10; i++) {
-			listaString += new Movie(i, "movie" + i) + ",";
-
-		}
-		return listaString;
-	}
-
-	private Movie getSingleMovies(int id) {
-		Movie[] listaMovie = new Movie[10];
-		for (int i = 0; i < 10; i++) {
-			listaMovie[i] = new Movie(i, "movie" + i);
-
-		}
-		return listaMovie[id];
-	}
-
-//-----------------------------------------------
 	@GetMapping("/")
-	@ResponseBody
-	public String home(Model model) {
-		final String name = "Lorenzo";
+	public String home(Model model, HttpServletRequest request) {
+		String name = "Lorenzo";
+		String currentUrl = request.getRequestURI();
+		model.addAttribute("currentUrl", currentUrl);
 		model.addAttribute("name", name);
-		return "Home";
+
+		return "home";
 	}
 
-//-----------------------------------------------
 	@GetMapping("/movies")
+	public String getMovies(Model model, HttpServletRequest request) {
+		List<Movie> movies = getBestMovies();
+		String currentUrl = request.getRequestURI();
+		model.addAttribute("currentUrl", currentUrl);
+		model.addAttribute("movies", movies);
 
-	public String movies(Model model) {
-		String dati = getBestMovies();
-		model.addAttribute("string", dati);
-
-		return "Movies";
+		return "movies";
 	}
 
 	@GetMapping("/songs")
-	public String songs(Model model) {
-		String dati = getBestSongs();
-		model.addAttribute("string", dati);
+	public String getSongs(Model model, HttpServletRequest request) {
+		List<Song> songs = getBestSongs();
+		String currentUrl = request.getRequestURI();
+		model.addAttribute("currentUrl", currentUrl);
+		model.addAttribute("songs", songs);
 
-		return "Songs";
-	}
-
-//-----------------------------------------------
-	@GetMapping("/songs/{id}")
-
-	public String singleSong(@PathVariable int id, Model model) {
-		Song singola = getSingleSongs(id);
-		model.addAttribute("string", singola);
-
-		return "singleSong";
+		return "songs";
 	}
 
 	@GetMapping("/movies/{id}")
+	public String getMovie(@PathVariable int id, Model model, HttpServletRequest request) {
+		Movie movie = getBestMovies().stream().filter(singleMovie -> singleMovie.getId() == id).toList().get(0);
+		String currentUrl = request.getRequestURI();
+		model.addAttribute("currentUrl", currentUrl);
+		model.addAttribute("movie", movie);
 
-	public String singleMovie(@PathVariable int id, Model model) {
-		Movie singola = getSingleMovies(id);
-		model.addAttribute("string", singola);
-
-		return "SingleMovie";
+		return "movie";
 	}
 
+	@GetMapping("/songs/{id}")
+	public String getSong(@PathVariable int id, Model model, HttpServletRequest request) {
+		Song song = getBestSongs().stream().filter(singleSong -> singleSong.getId() == id).toList().get(0);
+		String currentUrl = request.getRequestURI();
+		model.addAttribute("song", song);
 
+		return "song";
+	}
+
+	private List<Movie> getBestMovies() {
+		List<Movie> movies = new ArrayList<>();
+
+		for (int i = 1; i <= 5; i++) {
+			movies.add(new Movie(i, "Movie " + i));
+		}
+
+		return movies;
+	}
+
+	private List<Song> getBestSongs() {
+		List<Song> songs = new ArrayList<>();
+
+		for (int i = 1; i <= 5; i++) {
+			songs.add(new Song(i, "Song " + i));
+		}
+
+		return songs;
+	}
 }

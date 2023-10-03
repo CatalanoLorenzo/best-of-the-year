@@ -26,9 +26,9 @@ public class Song {
 	public void setTitolo(String titolo) {
 		this.titolo = titolo;
 	}
-	@Override
-	public String toString() {
-		// TODO Auto-generated method stub
-		return "Titolo :" + getTitolo() + " ID :"+ getId();
-	}
+//	@Override
+//	public String toString() {
+//		// TODO Auto-generated method stub
+//		return "Titolo :" + getTitolo() + " ID :"+ getId();
+//	}
 }

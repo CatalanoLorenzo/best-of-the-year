@@ -1,10 +1,14 @@
 <!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Best of the year</title>
-</head>
+<html lang="en">
+
+<head th:replace="frags :: html-head('Home')"></head>
+
 <body>
-<h1>`Best of the year by [[${name}]]</h1>
+	<header th:replace="frags :: header"></header>
+	<h1 class="text-center">Best of the year by [[${name}]]</h1>
+	
+	
+	<script th:replace="frags :: scribtbs"></script>
 </body>
+
 </html>

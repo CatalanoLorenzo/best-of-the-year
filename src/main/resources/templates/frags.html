@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title>Insert title here</title>
+</head>
+
+<body>
+	//-----------------------------------------------------------------------------------------------
+
+	<head th:fragment="html-head(title)">
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+		<link th:rel="stylesheet" th:href="@{/webjars/bootstrap/5.3.2/css/bootstrap.min.css}" />
+
+		<title>[[${title}]]</title>
+	</head>
+	//-----------------------------------------------------------------------------------------------
+	<script th:fragment="scribtbs" th:src="@{/webjars/bootstrap/5.3.2/js/bootstrap.bundle.min.js}"></script>
+	//-----------------------------------------------------------------------------------------------
+	<header th:fragment="header" class="d-flex align-items-center border border-dark my-3">
+		<div class="p-3 w-25 border-end border-dark">
+			<strong>Best of</strong>
+		</div>
+		<div class="px-3">
+			<a th:if="${currentUrl != '/'}"
+			th:href="@{/}" class="btn btn-outline-dark px-5 me-2">Home</a>
+			<a th:href="@{/movies}" class="btn btn-outline-dark px-5 me-2">Movies</a>
+			<a th:href="@{/songs}" class="btn btn-outline-dark px-5">Songs</a>
+
+		</div>
+	</header>
+	//-----------------------------------------------------------------------------------------------
+	<main th:fragment="main-movies(title,lista)">
+		<div class="container-fluid">
+			<div class="row justify-content-center">
+				<div class="col-4 text-center">
+					<h1>[[${title}]]</h1>
+					<ul class="list-group">
+						<li class="list-group-item" th:each="movie, stats : ${lista}">
+							<a th:href="@{/movies/{id}(id=${movie.getId()})}">
+								Title: [[${movie.title}]]
+							</a>
+						</li>
+						</ul>
+				</div>
+			</div>
+		</div>
+	</main>
+	<main th:fragment="main-songs(title,lista)">
+		<div class="container-fluid">
+			<div class="row justify-content-center">
+				<div class="col-4 text-center">
+					<h1>[[${title}]]</h1>
+					<ul class="list-group">
+						<li class="list-group-item" th:each="song, stats : ${lista}">
+							<a th:href="@{/songs/{id}(id=${song.getId()})}">
+								Title: [[${song.title}]]
+							</a>
+						</li>
+						</ul>
+				</div>
+			</div>
+		</div>
+	</main>
+	//-----------------------------------------------------------------------------------------------
+	<main th:fragment="main-single-movies-songs(title)">
+		<div class="container-fluid">
+			<div class="row justify-content-center">
+				<div class="col-4 text-center">
+					<h1>[[${title}]]</h1>
+					<img class="img-fluid" src="http://picsum.photos/600/400">
+					<ul class="list-group">
+						<li class="list-group-item">
+
+							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
+								ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+								ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
+								reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur
+								sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id
+								est laborum.</p>
+						</li>
+						</ulclass="list-group">
+				</div>
+			</div>
+		</div>
+	</main>
+
+</body>
+
+</html>

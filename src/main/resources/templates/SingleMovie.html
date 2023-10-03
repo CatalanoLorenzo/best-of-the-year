@@ -1,11 +1,14 @@
 <!DOCTYPE html>
 <html>
-<head>
-<meta charset="UTF-8">
-<title>Single Movie</title>
-</head>
+
+<head th:replace="frags :: html-head('SingleMovie')"></head>
+
+
 <body>
-	<h1>[[${string}]]</h1>
+	<header th:replace="frags :: header"></header>
+	<main th:replace="frags :: main-single-movies-songs('Best movie is')"></main>
+	<script th:replace="frags :: scribtbs"></script>
 
 </body>
+
 </html>

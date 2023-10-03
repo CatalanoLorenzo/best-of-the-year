@@ -1,13 +1,14 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
-<head>
-	<meta charset="UTF-8">
-	<title>Musica</title>
-</head>
+<head th:replace="frags :: html-head('Songs')"></head>
+
 
 <body>
-	<h1>[[${string}]]</h1>
+	<header th:replace="frags :: header"></header>
+		<main th:replace="frags :: main-songs('Best Songs',${songs})"></main>
+	<script th:replace="frags :: scribtbs"></script>
+
 </body>
 
 </html>
